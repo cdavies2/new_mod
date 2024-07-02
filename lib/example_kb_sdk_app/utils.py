@@ -141,11 +141,12 @@ class ExampleReadsApp(Core):
         """
         This method is where to define the variables to pass to the report.
         """
+        result=subprocess.run(["npm run build ['cdavies-react-project']"], shell=True, capture_output=True, text=True)
         # This path is required to properly use the template.
         reports_path = os.path.join(self.shared_folder, "reports")
         # Path to the Jinja template. The template can be adjusted to change
         # the report.
-        template_path = os.path.join(TEMPLATES_DIR, "report.html")
+        template_path = os.path.join(TEMPLATES_DIR, "dist/index.html")
         # A sample multiplication table to use as output
         table = [[i * j for j in range(10)] for i in range(10)]
         headers = "one two three four five six seven eight nine ten".split(" ")
