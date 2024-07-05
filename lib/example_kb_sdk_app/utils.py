@@ -94,9 +94,9 @@ class ExampleReadsApp(Core):
         params["output_value"] = output_value
         params["scores"] = scores
         params["upa"] = upa  # Not currently used, but the ID of the uploaded reads
+        
         # This is the method that generates the HTML report
         return self.generate_report(params)
-
     @staticmethod
     def get_streams(process):
         """
@@ -136,12 +136,13 @@ class ExampleReadsApp(Core):
         # object, saving it into the shared_folder and making it available to
         # the user.
         return self.ru.download_reads(dr_params)
-
+    
     def generate_report(self, params: dict):
         """
         This method is where to define the variables to pass to the report.
         """
-        result=subprocess.run(["npm run build ['cdavies-react-project']"], shell=True, capture_output=True, text=True)
+        result=subprocess.run(["npm run build"], shell=True, capture_output=True, text=True)
+        logging.info(result, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
         # This path is required to properly use the template.
         reports_path = os.path.join(self.shared_folder, "reports")
         # Path to the Jinja template. The template can be adjusted to change
