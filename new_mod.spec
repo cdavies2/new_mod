@@ -1,8 +1,8 @@
 /*
-A KBase module: example_kb_sdk_app
+A KBase module: new_mod
 */
 
-module example_kb_sdk_app {
+module new_mod {
     typedef structure {
         string report_name;
         string report_ref;
@@ -11,6 +11,6 @@ module example_kb_sdk_app {
     /*
         This example function accepts any number of parameters and returns results in a KBaseReport
     */
-    funcdef run_example_kb_sdk_app(mapping<string,UnspecifiedObject> params) returns (ReportResults output) authentication required;
+    funcdef run_new_mod(mapping<string,UnspecifiedObject> params) returns (ReportResults output) authentication required;
 
 };
