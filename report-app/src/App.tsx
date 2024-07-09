@@ -6,6 +6,9 @@ import Input from "./Components/Input";
 import Summary from "./Components/Summary/Summary";
 import Tasks from "./Components/Tasks/Tasks";
 import './app.css';
+
+var numbers=new Array(1, 4, 9)
+
 export interface Task {
   name: string;
   done: boolean;
@@ -13,13 +16,13 @@ export interface Task {
 }
 const initialTasks = [
   {
-    name: "We changed it",
+    name: numbers[0].toString(),
     done: false,
     id: uuidv4(),
   },
   {
-    name: "Changed it again",
-    done: true,
+    name: numbers[1].toString(),
+    done: false,
     id: uuidv4(),
   },
 ];

@@ -65,6 +65,7 @@ class ExampleReadsApp(Core):
                 out_path = os.path.join(self.shared_folder, filename)
                 with open(out_path, "w") as out_reads:
                     SeqIO.write(head, out_reads, "fastq")
+        
 
         # This method runs the process first and then returns the stdout and
         # stderr all at once, so take care if your process produces a large
@@ -95,6 +96,9 @@ class ExampleReadsApp(Core):
         params["output_value"] = output_value
         params["scores"] = scores
         params["upa"] = upa  # Not currently used, but the ID of the uploaded reads
+
+       
+        
         
         # This is the method that generates the HTML report
         return self.generate_report(params)
@@ -138,6 +142,7 @@ class ExampleReadsApp(Core):
         # the user.
         return self.ru.download_reads(dr_params)
     
+
     def generate_report(self, params: dict):
         """
         This method is where to define the variables to pass to the report.
@@ -151,8 +156,6 @@ class ExampleReadsApp(Core):
         reports_path = os.path.join(self.shared_folder, "reports")
         shutil.move("/kb/module/report-app/dist", reports_path)
 
-        # if 2>1:
-        #     raise Exception(result2)
         # This path is required to properly use the template.
         
         # Path to the Jinja template. The template can be adjusted to change
