@@ -146,7 +146,6 @@ class ExampleReadsApp(Core):
         os.chdir("/kb/module/report-app")
         #put the next two lines in the build.sh script
         #kb/module/scripts/build.sh
-        subprocess.run(["chmod +x ./scripts/build.sh"], shell=True, capture_output=True, text=True)
         result2=subprocess.run(["/kb/module/scripts/build.sh"], shell=True, capture_output=True, text=True)
         os.chdir(current_dir)
         reports_path = os.path.join(self.shared_folder, "reports")
