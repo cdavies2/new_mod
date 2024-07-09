@@ -1,0 +1,27 @@
+div{
+    display:flex;
+    flex-direction: column;
+}
+form{
+    display:flex;
+    flex-direction: column;
+    gap: 16px
+}
+input{
+    padding: 4px;
+    border-radius: 2px;
+
+}
+label{
+    color: white;
+}
+
+button{
+    background-color: rgba(209, 250, 229);
+    border-radius: 8px;
+    padding: 4px;
+}
+button:hover{
+    background-color: rgba(167, 243, 208);
+
+}

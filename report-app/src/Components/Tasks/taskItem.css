@@ -1,0 +1,34 @@
+div#Outer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    
+}
+div#Inner{
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 2px; 
+    
+
+}
+input{
+    display: flex;
+    gap: 8px;
+
+}
+
+button{
+    background-color: rgb(110, 231, 183);
+    border-radius: 8px;
+    padding: 8px 12px;
+
+}
+button:hover
+{
+    background-color: rgb(167, 243, 208);
+    
+}

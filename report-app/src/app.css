@@ -1,0 +1,29 @@
+
+div#outer {
+        display: flex;
+        justify-content: center;
+        margin: 20px;
+    }
+
+div#middle{
+    
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+        
+@media(min-width: 640px)
+{     
+div#inner{
+    width: 640px;
+    border-width: 1px;
+    --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    display:flex;
+    flex-direction: column;
+    gap: 40px;
+
+}  
+    
+}

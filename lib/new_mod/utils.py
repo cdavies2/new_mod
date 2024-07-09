@@ -7,6 +7,7 @@ import logging
 import os
 import subprocess
 import uuid
+import shutil
 
 from collections import Counter
 from shutil import copyfile
@@ -141,13 +142,23 @@ class ExampleReadsApp(Core):
         """
         This method is where to define the variables to pass to the report.
         """
-        result=subprocess.run(["npm run build"], shell=True, capture_output=True, text=True)
-        logging.info(result, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-        # This path is required to properly use the template.
+        current_dir=os.getcwd()
+        os.chdir("/kb/module/report-app")
+        #put the next two lines in the build.sh script
+        #kb/module/scripts/build.sh
+        subprocess.run(["chmod +x ./scripts/build.sh"], shell=True, capture_output=True, text=True)
+        result2=subprocess.run(["/kb/module/scripts/build.sh"], shell=True, capture_output=True, text=True)
+        os.chdir(current_dir)
         reports_path = os.path.join(self.shared_folder, "reports")
+        shutil.move("/kb/module/report-app/dist", reports_path)
+
+        # if 2>1:
+        #     raise Exception(result2)
+        # This path is required to properly use the template.
+        
         # Path to the Jinja template. The template can be adjusted to change
         # the report.
-        template_path = os.path.join(TEMPLATES_DIR, "dist/index.html")
+        # template_path = os.path.join(TEMPLATES_DIR, "dist/index.html")
         # A sample multiplication table to use as output
         table = [[i * j for j in range(10)] for i in range(10)]
         headers = "one two three four five six seven eight nine ten".split(" ")
@@ -178,4 +189,27 @@ class ExampleReadsApp(Core):
             template_variables=template_variables,
             workspace_name=params["workspace_name"],
         )
-        return self.create_report_from_template(template_path, config)
+        #return self.create_report_from_template(template_path, config)
+        report_name = config["report_name"]
+        reports_path = config["reports_path"]
+        workspace_name = config["workspace_name"]
+        html_links = [
+            {
+                "description": "report",
+                "name": "index.html",
+                "path": reports_path,
+            },
+        ]
+        report_info = self.report.create_extended_report(
+            {
+                "direct_html_link_index": 0,
+                "html_links": html_links,
+                "message": "A sample report.",
+                "report_object_name": report_name,
+                "workspace_name": workspace_name,
+            }
+        )
+        return {
+            "report_name": report_info["name"],
+            "report_ref": report_info["ref"],
+        }

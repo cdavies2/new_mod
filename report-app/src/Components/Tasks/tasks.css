@@ -1,0 +1,8 @@
+div{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+span#tasks{
+    --tw-text-opacity: 1; color: rgba(209, 250, 229);
+}
