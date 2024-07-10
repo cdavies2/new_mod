@@ -1,0 +1,33 @@
+[
+    {
+        "name": "Figure out how to rewrite tasks in a json file",
+        "done": true,
+        "id": "uuidv4()"
+
+    },
+    {
+        "name": "Import json into app",
+        "done": false,
+        "id": "uuidv4()"
+    },
+
+    {
+        "name": "Get json import to work in Python",
+        "done": false,
+        "id": "uuidv4()"
+    },
+    
+    {
+        "name": "Learn about large language models",
+        "done": false,
+        "id": "uuidv4()"
+    },
+
+    {
+        "name": "Eat lunch",
+        "done": false,
+        "id": "uuidv4()"
+    
+
+    }
+]
