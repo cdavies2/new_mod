@@ -6,23 +6,22 @@ import Input from "./Components/Input";
 import Summary from "./Components/Summary/Summary";
 import Tasks from "./Components/Tasks/Tasks";
 import './app.css';
+
+
 export interface Task {
   name: string;
   done: boolean;
   id: string;
 }
-const initialTasks = [
-  {
-    name: "We changed it",
-    done: false,
-    id: uuidv4(),
-  },
-  {
-    name: "Changed it again",
-    done: true,
-    id: uuidv4(),
-  },
-];
+const getData=async () => {
+  const response= await fetch("./Default-tasks.json");
+  const task_data=await response.json();
+  return task_data
+}
+
+const start_tasks=getData()
+
+const initialTasks = start_tasks;
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
