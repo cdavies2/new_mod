@@ -7,6 +7,7 @@ import Summary from "./Components/Summary/Summary";
 import Tasks from "./Components/Tasks/Tasks";
 import './app.css';
 
+var numbers=new Array(1, 4, 9)
 
 export interface Task {
   name: string;
@@ -21,7 +22,18 @@ const getData=async () => {
 
 const start_tasks=getData()
 
-const initialTasks = start_tasks;
+const initialTasks = [
+  {
+    name: numbers[0].toString(),
+    done: false,
+    id: uuidv4(),
+  },
+  {
+    name: numbers[1].toString(),
+    done: false,
+    id: uuidv4(),
+  },
+];
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
