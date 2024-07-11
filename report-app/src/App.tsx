@@ -1,5 +1,5 @@
 // src/App.tsx
-import { useState} from "react";
+import { useState, useEffect} from "react";
 import { v4 as uuidv4 } from "uuid"
 import Container from "./Components/Container";
 import Input from "./Components/Input";
@@ -7,7 +7,7 @@ import Summary from "./Components/Summary/Summary";
 import Tasks from "./Components/Tasks/Tasks";
 import './app.css';
 
-var numbers=new Array(1, 4, 9)
+//var numbers=new Array(1, 4, 9)
 
 export interface Task {
   name: string;
@@ -15,22 +15,35 @@ export interface Task {
   id: string;
 }
 
-const initialTasks = [
-  {
-    name: numbers[0].toString(),
-    done: false,
-    id: uuidv4(),
-  },
-  {
-    name: numbers[1].toString(),
-    done: false,
-    id: uuidv4(),
-  },
-];
+// const initialTasks = [
+//   {
+//     name: numbers[0].toString(),
+//     done: false,
+//     id: uuidv4(),
+//   },
+//   {
+//     name: numbers[1].toString(),
+//     done: false,
+//     id: uuidv4(),
+//   },
+// ];
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
-  
+  const [tasks, setTasks] = useState<Task[]>([]);
+  useEffect(() => {
+    async function fetchTasks() {
+      const result=await fetch('./Default-tasks.json');
+      const task_data=await result.json();
+      if (!ignore){
+        setTasks(task_data);
+      }
+    }
+    let ignore=false;
+    fetchTasks();
+    return () => {
+      ignore=true;
+    }
+  })
   const handleSubmit=(e: React.FormEvent<HTMLFormElement>, value: string)=> {
     e.preventDefault();
     const newTask={
