@@ -1,5 +1,5 @@
 // src/App.tsx
-import { useState } from "react";
+import { useState} from "react";
 import { v4 as uuidv4 } from "uuid"
 import Container from "./Components/Container";
 import Input from "./Components/Input";
@@ -14,13 +14,6 @@ export interface Task {
   done: boolean;
   id: string;
 }
-const getData=async () => {
-  const response= await fetch("./Default-tasks.json");
-  const task_data=await response.json();
-  return task_data
-}
-
-const start_tasks=getData()
 
 const initialTasks = [
   {
