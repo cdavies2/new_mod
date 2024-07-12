@@ -17,12 +17,12 @@ export interface Task {
 
 // const initialTasks = [
 //   {
-//     name: numbers[0].toString(),
+//     name: "Task 1",
 //     done: false,
 //     id: uuidv4(),
 //   },
 //   {
-//     name: numbers[1].toString(),
+//     name: "Task 2",
 //     done: false,
 //     id: uuidv4(),
 //   },
@@ -43,7 +43,7 @@ function App() {
     return () => {
       ignore=true;
     }
-  })
+  }, ([]))
   const handleSubmit=(e: React.FormEvent<HTMLFormElement>, value: string)=> {
     e.preventDefault();
     const newTask={

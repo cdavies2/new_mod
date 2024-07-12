@@ -98,10 +98,11 @@ class ExampleReadsApp(Core):
         params["upa"] = upa  # Not currently used, but the ID of the uploaded reads
 
        
-        
+        raise Exception(f"tasks: {params['tasks']}")
         
         # This is the method that generates the HTML report
         return self.generate_report(params)
+
     @staticmethod
     def get_streams(process):
         """
