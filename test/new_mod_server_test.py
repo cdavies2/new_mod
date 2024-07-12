@@ -75,36 +75,35 @@ class new_modTest(unittest.TestCase):
                 "workspace_name": self.wsName,
                 "reads_ref": "70257/2/1",
                 "output_name": "ReadsOutputName",
-                "tasks": [
-    
+                "tasks": [  
     {
         "name": "Import tasks in KBase to React App",
-        "done": true,
+        "done": True,
         "id": "Task1"
 
     },
 
     {
         "name": "Import json into app",
-        "done": false,
+        "done": False,
         "id": "Task2"
     },
     
     {
         "name": "Get json import to work in Python",
-        "done": false,
+        "done": False,
         "id": "Task3"
     },
 
     {
         "name": "Learn about large language models",
-        "done": false,
+        "done": False,
         "id": "Task4"
     },
     
     {
         "name": "Eat lunch",
-        "done": false,
+        "done": False,
         "id": "Task5"
     
 

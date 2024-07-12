@@ -32,7 +32,7 @@ function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   useEffect(() => {
     async function fetchTasks() {
-      const result=await fetch('./Default-tasks.json');
+      const result=await fetch('./input_tasks.json');
       const task_data=await result.json();
       if (!ignore){
         setTasks(task_data);

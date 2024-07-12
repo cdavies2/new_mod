@@ -8,6 +8,7 @@ import os
 import subprocess
 import uuid
 import shutil
+import json
 
 from collections import Counter
 from shutil import copyfile
@@ -91,15 +92,24 @@ class ExampleReadsApp(Core):
             name=params["output_name"], reads_path=out_path, wsname=params["workspace_name"]
         )
 
+
         # Pass new data to generate the report.
         params["count_df"] = count_df
         params["output_value"] = output_value
         params["scores"] = scores
         params["upa"] = upa  # Not currently used, but the ID of the uploaded reads
+        task=params["tasks"] #variable that represents user input tasks
 
        
-        raise Exception(f"tasks: {params['tasks']}")
-        
+        #raise Exception(task)
+        with open("/kb/module/input_tasks.json", "w") as jFile:
+            json.dump(task, jFile)
+        jFile.close()
+
+        dest=shutil.move("/kb/module/input_tasks.json", "/kb/module/report-app/public")
+
+
+
         # This is the method that generates the HTML report
         return self.generate_report(params)
 
