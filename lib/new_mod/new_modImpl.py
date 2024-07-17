@@ -5,7 +5,7 @@ import os
 
 from installed_clients.KBaseReportClient import KBaseReport
 from installed_clients.ReadsUtilsClient import ReadsUtils
-from .utils import ExampleReadsApp
+from .utils import NewModApp
 from base import Core
 
 
@@ -66,8 +66,8 @@ class new_mod:
         )
         # Download Reads
 
-        era = ExampleReadsApp(ctx, config=config)
-        output = era.do_analysis(params)
+        nma = NewModApp(ctx, config=config)
+        output = nma.do_analysis(params)
 
         #END run_new_mod
 

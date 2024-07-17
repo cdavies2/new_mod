@@ -8,6 +8,7 @@ import os
 import subprocess
 import uuid
 import shutil
+import json
 
 from collections import Counter
 from shutil import copyfile
@@ -21,6 +22,63 @@ from base import Core
 
 MODULE_DIR = "/kb/module"
 TEMPLATES_DIR = os.path.join(MODULE_DIR, "lib/templates")
+
+class NewModApp(Core):
+    def __init__(self, ctx, config, clients_class=None):
+        """
+        This is required to instantiate the Core App class with its defaults
+        and allows you to pass in more clients as needed.
+        """
+        super().__init__(ctx, config, clients_class)
+        # Here we adjust the instance attributes for our convenience.
+        self.report = self.clients.KBaseReport
+        self.ru = self.clients.ReadsUtils
+        # self.shared_folder is defined in the Core App class.
+        # TODO Add a self.wsid = a conversion of self.wsname
+
+    def do_analysis(self, params: dict):
+        """
+        This method is where the main computation will occur.
+        """
+        # We are logging everything because the script we are running does not
+        # have a lot of output, but if what you run does then you might not
+        # want to log *everything* to the user.
+        logging.info(params)
+        task=params["tasks"] #variable that represents user input tasks
+       
+        with open("/kb/module/input_tasks.json", "w") as jFile:
+            json.dump(task, jFile)
+        jFile.close()
+        
+
+        dest=shutil.move("/kb/module/input_tasks.json", "/kb/module/report-app/public")
+
+
+
+        # This is the method that generates the HTML report
+        return self.generate_report(params)
+
+
+    
+
+    def generate_report(self, params: dict):
+        """
+        This method is where to define the variables to pass to the report.
+        """
+        current_dir=os.getcwd()
+        os.chdir("/kb/module/report-app")
+        #put the next two lines in the build.sh script
+        #kb/module/scripts/build.sh
+        result2=subprocess.run(["/kb/module/scripts/build.sh"], shell=True, capture_output=True, text=True)
+        os.chdir(current_dir)
+        reports_path = os.path.join(self.shared_folder, "reports")
+        shutil.move("/kb/module/report-app/dist", reports_path)
+
+      
+        
+        return {
+            "report_name": "Testing",
+        }
 
 
 class ExampleReadsApp(Core):
@@ -65,6 +123,7 @@ class ExampleReadsApp(Core):
                 out_path = os.path.join(self.shared_folder, filename)
                 with open(out_path, "w") as out_reads:
                     SeqIO.write(head, out_reads, "fastq")
+        
 
         # This method runs the process first and then returns the stdout and
         # stderr all at once, so take care if your process produces a large
@@ -90,14 +149,27 @@ class ExampleReadsApp(Core):
             name=params["output_name"], reads_path=out_path, wsname=params["workspace_name"]
         )
 
+
         # Pass new data to generate the report.
         params["count_df"] = count_df
         params["output_value"] = output_value
         params["scores"] = scores
         params["upa"] = upa  # Not currently used, but the ID of the uploaded reads
+        task=params["tasks"] #variable that represents user input tasks
         
+
+        with open("/kb/module/input_tasks.json", "w") as jFile:
+            json.dump(task, jFile)
+        jFile.close()
+        
+
+        dest=shutil.move("/kb/module/input_tasks.json", "/kb/module/report-app/public")
+
+
+
         # This is the method that generates the HTML report
         return self.generate_report(params)
+
     @staticmethod
     def get_streams(process):
         """
@@ -138,6 +210,7 @@ class ExampleReadsApp(Core):
         # the user.
         return self.ru.download_reads(dr_params)
     
+
     def generate_report(self, params: dict):
         """
         This method is where to define the variables to pass to the report.
@@ -146,14 +219,11 @@ class ExampleReadsApp(Core):
         os.chdir("/kb/module/report-app")
         #put the next two lines in the build.sh script
         #kb/module/scripts/build.sh
-        subprocess.run(["chmod +x ./scripts/build.sh"], shell=True, capture_output=True, text=True)
         result2=subprocess.run(["/kb/module/scripts/build.sh"], shell=True, capture_output=True, text=True)
         os.chdir(current_dir)
         reports_path = os.path.join(self.shared_folder, "reports")
         shutil.move("/kb/module/report-app/dist", reports_path)
 
-        # if 2>1:
-        #     raise Exception(result2)
         # This path is required to properly use the template.
         
         # Path to the Jinja template. The template can be adjusted to change
