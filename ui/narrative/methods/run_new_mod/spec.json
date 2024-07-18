@@ -62,6 +62,9 @@
                 },{
                     "input_parameter": "output_name",
                     "target_property": "output_name"
+                },{
+                    "input_parameter": "task_strings",
+                    "target_property": "task_strings"
                 }
             ],
             "output_mapping": [
