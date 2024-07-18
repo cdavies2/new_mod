@@ -1,11 +1,5 @@
 div#Outer {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    
-}
-div#Inner{
-    display: flex;
     justify-content: space-between;
     background-color: white;
     padding: 4px;
@@ -13,13 +7,15 @@ div#Inner{
     padding-right: 12px;
     border-radius: 2px; 
     
-
 }
-input{
+div#Inner{
     display: flex;
-    gap: 8px;
+    flex-direction: row;
+    gap: 20px;
+    padding-top: 8px;
 
 }
+
 
 button{
     background-color: rgb(110, 231, 183);

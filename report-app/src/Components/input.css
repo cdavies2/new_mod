@@ -10,7 +10,7 @@ form{
 input{
     padding: 4px;
     border-radius: 2px;
-
+    gap: 8px;
 }
 label{
     color: white;

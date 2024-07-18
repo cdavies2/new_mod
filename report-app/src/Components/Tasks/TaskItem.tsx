@@ -21,13 +21,13 @@ const TaskItem= ({
         onChange={() => toggleDone(id, !done)}
         />
         {name}
+        </div>
       <button 
       type="button"
       onClick={() => handleDelete(id)}
       >
         Delete
       </button>
-      </div>
     </div>
     );
 };
