@@ -75,7 +75,7 @@ class new_modTest(unittest.TestCase):
                 "workspace_name": self.wsName,
                 "reads_ref": "70257/2/1",
                 "output_name": "ReadsOutputName",
-                "tasks": ["Task1", "Task2", "Task3", "Task4", "Task5", "Task6", "Task7", "Task8"]
+                "task_strings": [ "" ]
             },
         )
         # next steps:

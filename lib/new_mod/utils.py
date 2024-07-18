@@ -44,7 +44,7 @@ class NewModApp(Core):
         # have a lot of output, but if what you run does then you might not
         # want to log *everything* to the user.
         logging.info(params)
-        task=params["tasks"] #variable that represents user input tasks
+        task=params["task_strings"] #variable that represents user input tasks
        
         with open("/kb/module/input_tasks.json", "w") as jFile:
             json.dump(task, jFile)
