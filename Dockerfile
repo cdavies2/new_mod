@@ -29,7 +29,9 @@ RUN echo "nvm use 20" >> /root/.bashrc
 COPY ./ /kb/module
 RUN mkdir -p /kb/module/work
 RUN chmod -R a+rw /kb/module
-
+RUN mkdir -p /kb/module/report-app
+COPY ./scripts/build.sh /kb/module/scripts/build.sh
+RUN /kb/module/scripts/build.sh
 RUN make all
 
 ENTRYPOINT [ "./scripts/entrypoint.sh" ]
