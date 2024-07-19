@@ -40,6 +40,7 @@ class NewModApp(Core):
         """
         This method is where the main computation will occur.
         """
+        
         # We are logging everything because the script we are running does not
         # have a lot of output, but if what you run does then you might not
         # want to log *everything* to the user.
@@ -73,8 +74,7 @@ class NewModApp(Core):
         os.chdir(current_dir)
         reports_path = os.path.join(self.shared_folder, "reports")
         shutil.move("/kb/module/report-app/dist", reports_path)
-
-      
+        
         
         return {
             "report_name": "Testing",
