@@ -75,9 +75,30 @@ class NewModApp(Core):
         reports_path = os.path.join(self.shared_folder, "reports")
         shutil.move("/kb/module/report-app/dist", reports_path)
         
-        
+        report_name = f"kb_rwr_cv_report_{str(uuid.uuid4())}"
+        wsname=params["workspace_name"]
+        #create report object
+        html_links = [
+        {
+            "description": "report",
+            "name": "index.html",
+            "path": reports_path,
+        }
+        ]
+
+        report_info=self.report.create_extended_report(
+            {
+                "direct_html_link_index": 0,
+                "html_links": html_links,
+                "message": "A sample report with a react app",
+                "report_object_name": report_name,
+                "workspace_name": wsname
+            }
+        )
+
         return {
-            "report_name": "Testing",
+            "report_name": "Tester",
+            "report_ref": report_info["ref"],
         }
 
 
