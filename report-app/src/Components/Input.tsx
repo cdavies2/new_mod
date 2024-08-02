@@ -12,7 +12,6 @@ const InputContainer = ({
     return (
       <form 
       action="" 
-      className="flex flex-col gap-4"
       onSubmit={(e) => {
         handleSubmit(e, newTaskName);
         setNewTaskName("");

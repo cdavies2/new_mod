@@ -5,8 +5,8 @@ import Container from "./Components/Container";
 import Input from "./Components/Input";
 import Summary from "./Components/Summary/Summary";
 import Tasks from "./Components/Tasks/Tasks";
+import LLM from "./Components/LLM/LLM";
 import './app.css';
-
 
 export interface Task {
   name: string;
@@ -14,23 +14,12 @@ export interface Task {
   id: string;
 }
 
-function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
 
-  // useEffect(() => {
-  //   async function fetchTasks() {
-  //     const result=await fetch('./input_tasks.json');
-  //     const task_data=await result.json();
-  //     if (!ignore){
-  //       setTasks(task_data);
-  //     }
-  //   }
-  //   let ignore=false;
-  //   fetchTasks();
-  //   return () => {
-  //     ignore=true;
-  //   }
-  // }, ([]))
+function App() {
+
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [Message, setNewMessage]=useState("");
+  const [newKey, setKey]=useState("");
   let tasks_array=
   [
     {
@@ -40,35 +29,44 @@ function App() {
 
     }
   ]
+   
+
     useEffect(() => {
     const fetchTasks= async() => {
       const result=await fetch('./input_tasks.json');
       const task_data=await result.json();
       if (!ignore){
-        for(let i=0; i<task_data.length; i++){
-        tasks_array[i].name=task_data[i]
-        if (i<task_data.length-1)
         {
-        tasks_array.push(
-          {
-            name: "",
-            done: false,
-            id: uuidv4()
-
+          for(let i=0; i<task_data.length; i++){
+            tasks_array[i].name=task_data[i]
+            if (i<task_data.length-1)
+              {
+                tasks_array.push(
+                  {
+                    name: "",
+                    done: false,
+                    id: uuidv4()
+                  }
+                )
+              }
+            }
           }
-        )
-      }
         }
-      
-      setTasks(tasks_array)
-      }
+        setTasks(tasks_array)
     }
     let ignore=false;
+
     fetchTasks();
+    console.log(tasks)
     return () => {
       ignore=true;
     }
   }, ([]))
+
+
+
+
+
   const handleSubmit=(e: React.FormEvent<HTMLFormElement>, value: string)=> {
     e.preventDefault();
     const newTask={
@@ -89,13 +87,26 @@ function App() {
       })
     );
   };
+  const questionSubmit=(e:React.FormEvent<HTMLFormElement>, value: string)=> {
+    e.preventDefault();
+    const newMessage=value;
+    setNewMessage(Message + newMessage);
+  }
+  
+  const keySubmit=(e:React.FormEvent<HTMLFormElement>, value: string)=> {
+    e.preventDefault();
+    const key=value;
+    setKey(key + newKey);
+  }
 
   const handleDeleteTask = (id: string) =>{
+    
     setTasks((tasks) => tasks.filter((t) => t.id !==id));
+
   };
 
     return (
-      <div id='outer'>
+      <div id="outer">
         <div id="middle">
         <div id="inner">
             <Container title={"Summary"}>
@@ -109,6 +120,12 @@ function App() {
               tasks={tasks}
               toggleDone={toggleDoneTask}
               handleDelete={handleDeleteTask}
+              />
+            </Container>
+           
+            <Container title={"LLM"}>
+              <LLM questionSubmit={questionSubmit}
+              keySubmit={keySubmit}
               />
             </Container>
           </div>

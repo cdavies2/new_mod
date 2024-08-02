@@ -46,6 +46,7 @@ class NewModApp(Core):
         # want to log *everything* to the user.
         logging.info(params)
         task=params["task_strings"] #variable that represents user input tasks
+        question=params["llm_question"] #variable that represents user input questions
        
         with open("/kb/module/input_tasks.json", "w") as jFile:
             json.dump(task, jFile)
@@ -54,7 +55,12 @@ class NewModApp(Core):
 
         dest=shutil.move("/kb/module/input_tasks.json", "/kb/module/report-app/public")
 
+        with open("/kb/module/llm_question.json", "w") as qFile:
+            json.dump(question, qFile)
+        qFile.close()
+        
 
+        dest2=shutil.move("/kb/module/llm_question.json", "/kb/module/report-app/public")
 
         # This is the method that generates the HTML report
         return self.generate_report(params)
@@ -68,8 +74,6 @@ class NewModApp(Core):
         """
         current_dir=os.getcwd()
         os.chdir("/kb/module/report-app")
-        #put the next two lines in the build.sh script
-        #kb/module/scripts/build.sh
         result2=subprocess.run(["/kb/module/scripts/build.sh"], shell=True, capture_output=True, text=True)
         os.chdir(current_dir)
         reports_path = os.path.join(self.shared_folder, "reports")
